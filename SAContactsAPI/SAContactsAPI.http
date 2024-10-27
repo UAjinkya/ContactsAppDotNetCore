@@ -1,0 +1,6 @@
+@SAContactsAPI_HostAddress = http://localhost:5053
+
+GET {{SAContactsAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
