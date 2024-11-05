@@ -24,6 +24,11 @@ namespace SAContactsAPI.Controllers
         [HttpPost]
         public IActionResult Create(Contact contact)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                return BadRequest(new { errors }); // Return validation errors
+            }
             _service.Add(contact);
             return CreatedAtAction(nameof(Get), new { id = contact.Id }, contact);
         }
@@ -31,6 +36,11 @@ namespace SAContactsAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, Contact contact)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                return BadRequest(new { errors }); // Return validation errors
+            }
             if (id != contact.Id) return BadRequest();
             var existingContact = _service.Get(id);
             if (existingContact is null) return NotFound();
