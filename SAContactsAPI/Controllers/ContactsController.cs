@@ -46,5 +46,12 @@ namespace SAContactsAPI.Controllers
             _service.Delete(id);
             return NoContent();
         }
+
+        [HttpGet("error")]
+        public IActionResult GetError()
+        {
+            // This will simulate an error
+            throw new ArgumentException("This is a test argument exception.");
+        }
     }
 }
